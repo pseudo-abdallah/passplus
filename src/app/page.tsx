@@ -21,7 +21,7 @@ const interpolateColor = (color1: number[], color2: number[], factor: number) =>
   for (let i = 0; i < 3; i++) {
     result[i] = Math.round(result[i] + factor * (color2[i] - result[i]));
   }
-  return gb(\, \, \);
+  return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
 };
 
 const colors = [
@@ -52,7 +52,7 @@ export default function Home() {
       if (index >= 0 && index < sectionCount) {
         setBgColor(interpolateColor(colors[index], colors[index + 1], factor));
       } else if (index >= sectionCount) {
-        setBgColor(gb(\, \, \));
+        setBgColor(`rgb(${colors[sectionCount][0]}, ${colors[sectionCount][1]}, ${colors[sectionCount][2]})`);
       }
     };
 
@@ -67,13 +67,14 @@ export default function Home() {
       className="min-h-screen transition-colors duration-300 ease-out"
       style={{ backgroundColor: bgColor }}
     >
-            {/* Film Grain Noise Overlay */}
+      {/* Film Grain Noise Overlay */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-[0.03] z-[5]"
         style={{ 
           backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')" 
         }} 
       />
+
       {/* Cinematic Atmosphere Layer */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div 
@@ -207,5 +208,3 @@ export default function Home() {
     </main>
   );
 }
-
-
