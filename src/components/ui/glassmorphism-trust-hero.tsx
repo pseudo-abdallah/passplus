@@ -40,7 +40,7 @@ export default function HeroSection() {
       {/* 
         SCOPED ANIMATIONS 
       */}
-      <style>{
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeSlideIn {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -54,14 +54,14 @@ export default function HeroSection() {
           opacity: 0;
         }
         .animate-marquee {
-          animation: marquee 40s linear infinite; /* Slower for readability */
+          animation: marquee 40s linear infinite;
         }
         .delay-100 { animation-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
         .delay-500 { animation-delay: 0.5s; }
-      }</style>
+      ` }} />
 
       {/* Background Image with Gradient Mask */}
       <div 
