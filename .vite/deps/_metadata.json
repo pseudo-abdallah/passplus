@@ -1,0 +1,61 @@
+{
+  "hash": "16aac1e4",
+  "configHash": "e9bd092b",
+  "lockfileHash": "91d10b26",
+  "browserHash": "0e03d126",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "5b4bf2e4",
+      "needsInterop": true
+    },
+    "react-dom": {
+      "src": "../../node_modules/react-dom/index.js",
+      "file": "react-dom.js",
+      "fileHash": "75b4869b",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "21b2fc20",
+      "needsInterop": true
+    },
+    "react/jsx-runtime": {
+      "src": "../../node_modules/react/jsx-runtime.js",
+      "file": "react_jsx-runtime.js",
+      "fileHash": "945ad9d4",
+      "needsInterop": true
+    },
+    "liquid-glass-react": {
+      "src": "../../node_modules/liquid-glass-react/dist/index.esm.js",
+      "file": "liquid-glass-react.js",
+      "fileHash": "29e2d576",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "7ea6ef2c",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "3b69b040",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-JBQ4QJFN": {
+      "file": "chunk-JBQ4QJFN.js"
+    },
+    "chunk-CTR2TRY5": {
+      "file": "chunk-CTR2TRY5.js"
+    },
+    "chunk-G4V7ITBN": {
+      "file": "chunk-G4V7ITBN.js"
+    }
+  }
+}
