@@ -413,8 +413,25 @@ export default function Join() {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!email) return;
+    
+    // Save to Supabase waitlist table
+    try {
+      await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist", {
+        method: "POST",
+        headers: {
+          "apikey": "sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
+          "Authorization": "Bearer sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
+          "Content-Type": "application/json",
+          "Prefer": "return=minimal"
+        },
+        body: JSON.stringify({ email: email })
+      });
+    } catch (err) {
+      console.error("Supabase Error:", err);
+    }
+
     setConfetti(true);
     setMembersCount(c => c + 1);
     setTimeout(() => { setShowModal(true); setConfetti(false); }, 280);
