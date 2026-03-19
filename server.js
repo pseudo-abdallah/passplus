@@ -13,7 +13,9 @@ app.get('/health', (req, res) => {
   res.send('OK');
 });
 
-app.get('*', (req, res) => {
+// Use app.use as a catch-all callback instead of app.get('*')
+// to prevent Express 5 / path-to-regexp v8 wildcard crash
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
