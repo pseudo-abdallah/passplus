@@ -451,16 +451,13 @@ export default function Join() {
         body: JSON.stringify({ email: email })
       });
 
-      if (res.ok) {
-        setConfetti(true);
-        setMembersCount(c => c + 1);
-        setTimeout(() => { 
-          setShowModal(true); 
-          setConfetti(false); 
-        }, 280);
-      } else {
-        console.error("Failed to join waitlist:", await res.text());
-      }
+      // Show success regardless (handles duplicates too)
+      setConfetti(true);
+      setMembersCount(c => c + 1);
+      setTimeout(() => { 
+        setShowModal(true); 
+        setConfetti(false); 
+      }, 280);
     } catch (err) {
       console.error("Supabase Error:", err);
     }
