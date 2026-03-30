@@ -324,6 +324,8 @@ function LiquidCard({ mouse, email, setEmail, focusedEmail, setFocusedEmail, onS
             <path d="M22 7l-10 7L2 7" />
           </svg>
           <input
+            id="email-input"
+            name="email"
             className="pp-input"
             type="email"
             placeholder="Enter your email"
