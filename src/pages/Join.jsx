@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import { supabase } from "../lib/supabase";
 
 /* ══════════════════════════════════════════
    LIQUID METAL — PASS+ JOIN PAGE REDESIGN
@@ -400,17 +401,11 @@ export default function Join() {
     // Fetch initial count from Supabase
     const fetchCount = async () => {
       try {
-        const res = await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist?select=count", {
-          headers: {
-            "apikey": "sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
-            "Authorization": "Bearer sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
-            "Prefer": "count=exact"
-          }
-        });
-        const data = await res.json();
-        // PostgREST returns count in the first element if using count=exact/select=count
-        if (data && data[0] && typeof data[0].count === 'number') {
-          setMembersCount(data[0].count);
+        const { count, error } = await supabase
+          .from('waitlist')
+          .select('*', { count: 'exact', head: true });
+        if (!error && count !== null) {
+          setMembersCount(count);
         }
       } catch (err) {
         console.error("Error fetching count:", err);
@@ -440,16 +435,13 @@ export default function Join() {
     
     // Save to Supabase waitlist table
     try {
-      const res = await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist", {
-        method: "POST",
-        headers: {
-          "apikey": "sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
-          "Authorization": "Bearer sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
-          "Content-Type": "application/json",
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({ email: email })
-      });
+      const { error } = await supabase
+        .from('waitlist')
+        .insert({ email: email });
+      
+      if (error) {
+        console.error("Supabase Error:", error.message);
+      }
 
       // Show success regardless (handles duplicates too)
       setConfetti(true);
