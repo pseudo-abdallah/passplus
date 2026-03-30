@@ -396,6 +396,28 @@ export default function Join() {
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80);
+    
+    // Fetch initial count from Supabase
+    const fetchCount = async () => {
+      try {
+        const res = await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist?select=count", {
+          headers: {
+            "apikey": "sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
+            "Authorization": "Bearer sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
+            "Prefer": "count=exact"
+          }
+        });
+        const data = await res.json();
+        // PostgREST returns count in the first element if using count=exact/select=count
+        if (data && data[0] && typeof data[0].count === 'number') {
+          setMembersCount(data[0].count);
+        }
+      } catch (err) {
+        console.error("Error fetching count:", err);
+      }
+    };
+    fetchCount();
+
     return () => clearTimeout(t);
   }, []);
 
@@ -418,7 +440,7 @@ export default function Join() {
     
     // Save to Supabase waitlist table
     try {
-      await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist", {
+      const res = await fetch("https://vcimglvlnsqdeztmzzsd.supabase.co/rest/v1/waitlist", {
         method: "POST",
         headers: {
           "apikey": "sb_publishable_RaabbAPCljSOWWCi3N8skA_LMqaH5bH",
@@ -428,13 +450,20 @@ export default function Join() {
         },
         body: JSON.stringify({ email: email })
       });
+
+      if (res.ok) {
+        setConfetti(true);
+        setMembersCount(c => c + 1);
+        setTimeout(() => { 
+          setShowModal(true); 
+          setConfetti(false); 
+        }, 280);
+      } else {
+        console.error("Failed to join waitlist:", await res.text());
+      }
     } catch (err) {
       console.error("Supabase Error:", err);
     }
-
-    setConfetti(true);
-    setMembersCount(c => c + 1);
-    setTimeout(() => { setShowModal(true); setConfetti(false); }, 280);
   };
 
   return (
